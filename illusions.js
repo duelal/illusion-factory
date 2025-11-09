@@ -109,7 +109,9 @@ const ctx = canvas.getContext('2d');
 // Canvas サイズの設定
 function resizeCanvas() {
     const container = canvas.parentElement;
-    const size = Math.min(container.clientWidth - 40, 600);
+    // モバイルではより余白を小さく
+    const padding = window.innerWidth <= 600 ? 10 : 40;
+    const size = Math.min(container.clientWidth - padding, 600);
     canvas.width = size;
     canvas.height = size;
     drawCurrentIllusion();
@@ -205,7 +207,8 @@ function drawMullerLyer(ctx, w, h) {
 // エビングハウス錯視
 function drawEbbinghaus(ctx, w, h) {
     const centerY = h / 2;
-    const innerRadius = 30;
+    const scale = Math.min(w, h);
+    const innerRadius = scale * 0.06;
 
     // 左側（大きな円に囲まれた小さな中央円）
     const leftX = w * 0.3;
@@ -214,10 +217,10 @@ function drawEbbinghaus(ctx, w, h) {
     ctx.arc(leftX, centerY, innerRadius, 0, Math.PI * 2);
     ctx.fill();
 
-    const largeRadius = 50;
-    const largeDistance = 90;
+    const largeRadius = scale * 0.1;
+    const largeDistance = scale * 0.18;
     ctx.strokeStyle = '#4ecdc4';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = Math.max(2, scale * 0.005);
     for (let i = 0; i < 6; i++) {
         const angle = (i / 6) * Math.PI * 2;
         const x = leftX + Math.cos(angle) * largeDistance;
@@ -234,8 +237,8 @@ function drawEbbinghaus(ctx, w, h) {
     ctx.arc(rightX, centerY, innerRadius, 0, Math.PI * 2);
     ctx.fill();
 
-    const smallRadius = 15;
-    const smallDistance = 60;
+    const smallRadius = scale * 0.03;
+    const smallDistance = scale * 0.12;
     ctx.strokeStyle = '#4ecdc4';
     for (let i = 0; i < 6; i++) {
         const angle = (i / 6) * Math.PI * 2;
@@ -670,7 +673,8 @@ function drawKanizsa(ctx, w, h) {
 // デルブーフ錯視
 function drawDelboeuf(ctx, w, h) {
     const centerY = h / 2;
-    const innerRadius = 40;
+    const scale = Math.min(w, h);
+    const innerRadius = scale * 0.08;
 
     // 左側：小さな外円
     const leftX = w * 0.3;
@@ -680,9 +684,9 @@ function drawDelboeuf(ctx, w, h) {
     ctx.fill();
 
     ctx.strokeStyle = '#000';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = Math.max(2, scale * 0.005);
     ctx.beginPath();
-    ctx.arc(leftX, centerY, innerRadius + 15, 0, Math.PI * 2);
+    ctx.arc(leftX, centerY, innerRadius + scale * 0.03, 0, Math.PI * 2);
     ctx.stroke();
 
     // 右側：大きな外円
@@ -693,9 +697,9 @@ function drawDelboeuf(ctx, w, h) {
     ctx.fill();
 
     ctx.strokeStyle = '#000';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = Math.max(2, scale * 0.005);
     ctx.beginPath();
-    ctx.arc(rightX, centerY, innerRadius + 60, 0, Math.PI * 2);
+    ctx.arc(rightX, centerY, innerRadius + scale * 0.12, 0, Math.PI * 2);
     ctx.stroke();
 }
 
