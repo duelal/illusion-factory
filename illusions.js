@@ -208,17 +208,17 @@ function drawMullerLyer(ctx, w, h) {
 function drawEbbinghaus(ctx, w, h) {
     const centerY = h / 2;
     const scale = Math.min(w, h);
-    const innerRadius = scale * 0.06;
+    const innerRadius = scale * 0.05;
 
     // 左側（大きな円に囲まれた小さな中央円）
-    const leftX = w * 0.3;
+    const leftX = w * 0.27;
     ctx.fillStyle = '#ff6b6b';
     ctx.beginPath();
     ctx.arc(leftX, centerY, innerRadius, 0, Math.PI * 2);
     ctx.fill();
 
-    const largeRadius = scale * 0.1;
-    const largeDistance = scale * 0.18;
+    const largeRadius = scale * 0.08;
+    const largeDistance = scale * 0.15;
     ctx.strokeStyle = '#4ecdc4';
     ctx.lineWidth = Math.max(2, scale * 0.005);
     for (let i = 0; i < 6; i++) {
@@ -231,14 +231,14 @@ function drawEbbinghaus(ctx, w, h) {
     }
 
     // 右側（小さな円に囲まれた同じ大きさの中央円）
-    const rightX = w * 0.7;
+    const rightX = w * 0.73;
     ctx.fillStyle = '#ff6b6b';
     ctx.beginPath();
     ctx.arc(rightX, centerY, innerRadius, 0, Math.PI * 2);
     ctx.fill();
 
-    const smallRadius = scale * 0.03;
-    const smallDistance = scale * 0.12;
+    const smallRadius = scale * 0.025;
+    const smallDistance = scale * 0.1;
     ctx.strokeStyle = '#4ecdc4';
     for (let i = 0; i < 6; i++) {
         const angle = (i / 6) * Math.PI * 2;
@@ -877,17 +877,18 @@ function drawMotionBinding(ctx, w, h) {
 function drawShepardTables(ctx, w, h) {
     const centerX = w / 2;
     const centerY = h / 2;
+    const scale = Math.min(w, h);
 
     ctx.fillStyle = '#8B4513';
     ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = Math.max(1, scale * 0.003);
 
     // 左のテーブル（縦長）
     const leftTable = [
-        [centerX - 200, centerY - 80],
-        [centerX - 120, centerY - 80],
-        [centerX - 80, centerY - 40],
-        [centerX - 160, centerY - 40]
+        [centerX - scale * 0.35, centerY - scale * 0.15],
+        [centerX - scale * 0.2, centerY - scale * 0.15],
+        [centerX - scale * 0.14, centerY - scale * 0.08],
+        [centerX - scale * 0.28, centerY - scale * 0.08]
     ];
 
     ctx.beginPath();
@@ -902,20 +903,20 @@ function drawShepardTables(ctx, w, h) {
     // 脚
     ctx.beginPath();
     ctx.moveTo(leftTable[0][0], leftTable[0][1]);
-    ctx.lineTo(leftTable[0][0] - 10, centerY + 100);
+    ctx.lineTo(leftTable[0][0] - scale * 0.02, centerY + scale * 0.18);
     ctx.stroke();
 
     ctx.beginPath();
     ctx.moveTo(leftTable[1][0], leftTable[1][1]);
-    ctx.lineTo(leftTable[1][0] + 10, centerY + 100);
+    ctx.lineTo(leftTable[1][0] + scale * 0.02, centerY + scale * 0.18);
     ctx.stroke();
 
     // 右のテーブル（横長）
     const rightTable = [
-        [centerX + 80, centerY - 40],
-        [centerX + 160, centerY - 40],
-        [centerX + 200, centerY + 80],
-        [centerX + 120, centerY + 80]
+        [centerX + scale * 0.14, centerY - scale * 0.08],
+        [centerX + scale * 0.28, centerY - scale * 0.08],
+        [centerX + scale * 0.35, centerY + scale * 0.15],
+        [centerX + scale * 0.2, centerY + scale * 0.15]
     ];
 
     ctx.fillStyle = '#8B4513';
@@ -931,12 +932,12 @@ function drawShepardTables(ctx, w, h) {
     // 脚
     ctx.beginPath();
     ctx.moveTo(rightTable[0][0], rightTable[0][1]);
-    ctx.lineTo(rightTable[0][0] - 10, centerY + 100);
+    ctx.lineTo(rightTable[0][0] - scale * 0.02, centerY + scale * 0.18);
     ctx.stroke();
 
     ctx.beginPath();
     ctx.moveTo(rightTable[1][0], rightTable[1][1]);
-    ctx.lineTo(rightTable[1][0] + 10, centerY + 100);
+    ctx.lineTo(rightTable[1][0] + scale * 0.02, centerY + scale * 0.18);
     ctx.stroke();
 }
 
